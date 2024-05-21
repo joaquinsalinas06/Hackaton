@@ -42,4 +42,16 @@ public class SalonController {
         salonService.deleteSalon(id);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/{idSalon}/etiquetas/{idEtiqueta}")
+    public ResponseEntity<Void> addEtiquetaToSalon(@PathVariable Long idSalon, @PathVariable Long idEtiqueta) {
+        salonService.addEtiquetaToSalon(idSalon, idEtiqueta);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{idSalon}/etiquetas/{idEtiqueta}")
+    public ResponseEntity<Void> removeEtiquetaFromSalon(@PathVariable Long idSalon, @PathVariable Long idEtiqueta) {
+        salonService.removeEtiquetaFromSalon(idSalon, idEtiqueta);
+        return ResponseEntity.ok().build();
+    }
 }
