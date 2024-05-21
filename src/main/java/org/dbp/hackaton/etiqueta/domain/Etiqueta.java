@@ -1,12 +1,12 @@
 package org.dbp.hackaton.etiqueta.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.dbp.hackaton.salon.domain.Salon;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,4 +18,8 @@ public class Etiqueta {
     private Long idEtiqueta;
 
     private String nombre;
+
+    @ManyToMany(mappedBy = "etiquetas", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Salon> salones;
+
 }
