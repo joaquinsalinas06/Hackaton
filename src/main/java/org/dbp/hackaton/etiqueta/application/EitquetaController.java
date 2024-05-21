@@ -31,8 +31,8 @@ public class EitquetaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEtiqueta(@PathVariable Long id, @RequestBody Etiqueta etiqueta) {
-        etiquetaService.updateEtiqueta(id, etiqueta);
+    public ResponseEntity<Void> updateEtiqueta(@PathVariable Long id, @RequestBody Etiqueta updatedEtiqueta) {
+        etiquetaService.updateEtiqueta(id, updatedEtiqueta);
         return ResponseEntity.ok().build();
     }
 

@@ -1,6 +1,7 @@
 package org.dbp.hackaton.etiqueta.domain;
 
 import org.dbp.hackaton.etiqueta.infraestructure.EtiquetaRepository;
+import org.dbp.hackaton.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,14 @@ public class EtiquetaService {
         return "/etiquetas/" + etiqueta.getIdEtiqueta();
     }
 
-    public void updateEtiqueta(Long id, Etiqueta etiqueta) {
-        Etiqueta etiquetalocal = etiquetaRepository.findById(id).orElseThrow();
-        etiquetalocal.setNombre(etiqueta.getNombre());
-
-        etiquetaRepository.save(etiquetalocal);
+    public void updateEtiqueta(Long id, Etiqueta updatedEtiqueta) {
+        Etiqueta etiqueta = etiquetaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Etiqueta not found"));
+        etiqueta.setNombre(updatedEtiqueta.getNombre());
+        etiquetaRepository.save(etiqueta);
     }
 
     public void deleteEtiqueta(Long id) {
+        if (!etiquetaRepository.existsById(id)) throw new ResourceNotFoundException("Etiqueta not found");
         etiquetaRepository.deleteById(id);
     }
 }

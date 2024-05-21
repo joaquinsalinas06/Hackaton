@@ -32,8 +32,8 @@ public class SalonController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Void> updateSalon(@PathVariable Long id){
-        salonService.updateSalon(id);
+    private ResponseEntity<Void> updateSalon(@PathVariable Long id, @RequestBody Salon updatedSalon){
+        salonService.updateSalon(id, updatedSalon);
         return ResponseEntity.ok().build();
     }
 
