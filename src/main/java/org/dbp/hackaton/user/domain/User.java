@@ -1,5 +1,6 @@
 package org.dbp.hackaton.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -23,12 +24,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
     private String nombre;
+
+    private String apellidos;
     @Email
     private String email;
     @NotBlank
     private String password;
     private String telefono;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Reserva> reservas;
 
     @Override
