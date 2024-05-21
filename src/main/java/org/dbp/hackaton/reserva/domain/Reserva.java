@@ -1,12 +1,11 @@
 package org.dbp.hackaton.reserva.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.dbp.hackaton.salon.domain.Salon;
+import org.dbp.hackaton.user.domain.User;
 
 import java.sql.Time;
 import java.util.Date;
@@ -25,4 +24,12 @@ public class Reserva {
     private Time horaInicio;
 
     private Time horaFin;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUsuario")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idSalon")
+    private Salon salon;
 }
