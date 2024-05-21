@@ -26,17 +26,18 @@ public class ReservaService {
         return "/reserva/" + reserva.getIdReserva();
     }
 
-    public void putReservas(Long id , Reserva reserva) {
-        Reserva reservalocal = reservaRepository.findById(id).orElseThrow();
+    public void putReservas(Long id , Reserva updatedReserva) {
+        Reserva reserva = reservaRepository.findById(id).orElseThrow(() -> new RuntimeException("Reserva not found"));
 
-        reservalocal.setFecha(reserva.getFecha());
-        reservalocal.setHoraInicio(reserva.getHoraInicio());
-        reservalocal.setHoraFin(reserva.getHoraFin());
+        reserva.setFecha(updatedReserva.getFecha());
+        reserva.setHoraInicio(updatedReserva.getHoraInicio());
+        reserva.setHoraFin(updatedReserva.getHoraFin());
 
-        reservaRepository.save(reservalocal);
+        reservaRepository.save(reserva);
     }
 
     public void deleteReservas(Long id) {
+        if (!reservaRepository.existsById(id)) throw new RuntimeException("Reserva not found");
         reservaRepository.deleteById(id);
     }
 }

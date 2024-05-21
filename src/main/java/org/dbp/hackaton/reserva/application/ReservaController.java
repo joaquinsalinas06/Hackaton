@@ -32,8 +32,8 @@ public class ReservaController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Void> putReservas(@PathVariable Long id, @RequestBody Reserva reserva){
-        reservaService.putReservas(id, reserva);
+    private ResponseEntity<Void> putReservas(@PathVariable Long id, @RequestBody Reserva updatedReserva){
+        reservaService.putReservas(id, updatedReserva);
         return ResponseEntity.noContent().build();
     }
 

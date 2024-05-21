@@ -1,5 +1,6 @@
 package org.dbp.hackaton.salon.domain;
 
+import org.dbp.hackaton.exception.ResourceNotFoundException;
 import org.dbp.hackaton.salon.infrastructure.SalonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,18 +25,19 @@ public class SalonService {
         return "/salon/" + salon.getIdSalon();
     }
 
-    public void updateSalon(Long id){
-        Salon salon = salonRepository.findById(id).orElseThrow();
+    public void updateSalon(Long id, Salon updatedSalon){
+        Salon salon = salonRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Salon not found"));
 
-        salon.setNombre(salon.getNombre());
-        salon.setUbicacion(salon.getUbicacion());
-        salon.setCapacidad(salon.getCapacidad());
-        salon.setDescripcion(salon.getDescripcion());
+        salon.setNombre(updatedSalon.getNombre());
+        salon.setUbicacion(updatedSalon.getUbicacion());
+        salon.setCapacidad(updatedSalon.getCapacidad());
+        salon.setDescripcion(updatedSalon.getDescripcion());
 
         salonRepository.save(salon);
     }
 
     public void deleteSalon(Long id) {
+        if (!salonRepository.existsById(id)) throw new ResourceNotFoundException("Salon not found");
         salonRepository.deleteById(id);
     }
 }
