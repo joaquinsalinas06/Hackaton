@@ -1,5 +1,7 @@
 package org.dbp.hackaton.salon.domain;
 
+import org.dbp.hackaton.etiqueta.domain.Etiqueta;
+import org.dbp.hackaton.etiqueta.infraestructure.EtiquetaRepository;
 import org.dbp.hackaton.exception.ResourceNotFoundException;
 import org.dbp.hackaton.salon.infrastructure.SalonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,12 @@ import java.util.List;
 @Service
 public class SalonService {
     private final SalonRepository salonRepository;
+    private final EtiquetaRepository etiquetaRepository;
 
     @Autowired
-    public SalonService(SalonRepository salonRepository) {
+    public SalonService(SalonRepository salonRepository, EtiquetaRepository etiquetaRepository) {
         this.salonRepository = salonRepository;
+        this.etiquetaRepository = etiquetaRepository;
     }
 
     public List<Salon> getSalones() {
@@ -40,4 +44,28 @@ public class SalonService {
         if (!salonRepository.existsById(id)) throw new ResourceNotFoundException("Salon not found");
         salonRepository.deleteById(id);
     }
+
+    public void addEtiquetaToSalon(Long salonId, Long etiquetaId) {
+        Salon salon = salonRepository.findById(salonId)
+                .orElseThrow(() -> new ResourceNotFoundException("Salon not found"));
+        Etiqueta etiqueta = etiquetaRepository.findById(etiquetaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Etiqueta not found"));
+
+        salon.getEtiquetas().add(etiqueta);
+        salonRepository.save(salon);
+    }
+
+    public void removeEtiquetaFromSalon(Long salonId, Long etiquetaId) {
+        Salon salon = salonRepository.findById(salonId)
+                .orElseThrow(() -> new ResourceNotFoundException("Salon not found"));
+        Etiqueta etiqueta = etiquetaRepository.findById(etiquetaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Etiqueta not found"));
+
+        salon.getEtiquetas().remove(etiqueta);
+        salonRepository.save(salon);
+    }
+
+
+
+
 }
