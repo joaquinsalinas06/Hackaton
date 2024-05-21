@@ -26,8 +26,8 @@ public class ReservaController {
     }
 
     @PostMapping
-    private ResponseEntity<String> postReservas(@RequestBody Reserva reserva){
-        String uri = reservaService.postReservas(reserva);
+    private ResponseEntity<String> postReservas(@RequestBody Reserva reserva, @RequestParam String email){
+        String uri = reservaService.postReservas(reserva, email);
         return ResponseEntity.created(URI.create(uri)).build();
     }
 
