@@ -15,5 +15,7 @@ import lombok.NoArgsConstructor;
 public class Etiqueta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idEtiqueta;
+
+    private String nombre;
 }

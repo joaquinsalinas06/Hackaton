@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/etiquetas")
@@ -19,7 +20,7 @@ public class EitquetaController {
     }
 
     @GetMapping
-    public ResponseEntity<Etiqueta> getEtiquetas() {
+    public ResponseEntity<List<Etiqueta>> getEtiquetas() {
         return ResponseEntity.ok(etiquetaService.getEtiquetas());
     }
 
@@ -31,7 +32,8 @@ public class EitquetaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateEtiqueta(@PathVariable Long id, @RequestBody Etiqueta etiqueta) {
-        return ResponseEntity.ok(etiquetaService.updateEtiqueta(etiqueta));
+        etiquetaService.updateEtiqueta(id, etiqueta);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

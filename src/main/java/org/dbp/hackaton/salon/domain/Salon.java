@@ -15,6 +15,14 @@ import lombok.NoArgsConstructor;
 public class Salon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idSalon;
+
+    private String nombre;
+
+    private String ubicacion;
+
+    private Integer capacidad;
+
+    private  String descripcion;
 }
 
