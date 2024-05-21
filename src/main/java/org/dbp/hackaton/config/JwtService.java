@@ -31,10 +31,6 @@ public class JwtService {
         return JWT.decode(token).getSubject();
     }
 
-    public String extractClaim(String token, String claim) {
-        return JWT.decode(token).getClaim(claim).asString();
-    }
-
     public String generateToken(UserDetails data) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + 1000 * 60 * 60 * 10);
@@ -43,7 +39,6 @@ public class JwtService {
 
         return JWT.create()
                 .withSubject(data.getUsername())
-                .withClaim("role", data.getAuthorities().toArray()[0].toString())
                 .withIssuedAt(now)
                 .withExpiresAt(expiration)
                 .sign(algorithm);
